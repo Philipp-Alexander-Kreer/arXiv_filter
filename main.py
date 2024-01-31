@@ -1,4 +1,4 @@
-
+import pandas as pd
 import os
 
 #Function which loads the eml file and returns the body of the email
@@ -8,6 +8,9 @@ def load_articles(file_path):
 
         body = f.read().split('arXiv:')[1:]
         body = ['arXiv:' + i for i in body]
+
+        #remove the last part of the body which is not an article and add the end of the article
+        body[-1] = body[-1].split('%%%---%%%')[0] + "----\n\\\\"
 
         return body
 
@@ -28,7 +31,10 @@ def extract_article_info(article):
     for i in complement_categories:
         article_info[i] = 'NA'
 
-    article_cut = article.replace('\n', ' ')
+    # the labels are : -1 = filtered, 0 = ignored, 1 = opened abstract, 2 = opened link
+    article_info['label'] = 'NA'
+
+    article_cut = article.replace('\n', ' ').replace('(*cross-listing*)', '')
 
 
 
@@ -50,14 +56,48 @@ def extract_article_info(article):
     return article_info
 
 
+class Article:
+    def __init__(self, article):
+
+        # if article is a string, extract the info
+        article_info = extract_article_info(article)
+
+        self.arxiv = article_info['arxiv']
+        self.date = article_info['date']
+        self.title = article_info['title']
+        self.authors = article_info['authors']
+        self.categories = article_info['categories']
+        self.comments = article_info['comments']
+        self.report_no = article_info['report-no']
+        self.journal_ref = article_info['journal-ref']
+        self.doi = article_info['doi']
+        self.abstract = article_info['abstract']
+        self.link = article_info['link']
+        self.label = article_info['label']
 
 
 if __name__ == '__main__':
 
-    test = load_articles("test_mail.eml")
-    #print(test[0].split('\n')[6:])
-    test = extract_article_info(test[9])
+    articles = [Article(i) for i in load_articles("test_mail.eml")]
 
-    for i in test:
-        print(i, test[i])
+    #convert articles into a pandas dataframe
+    darticles = pd.DataFrame([vars(i) for i in articles])
+
+    #filter duplicates based on arxiv id
+    darticles = darticles.drop_duplicates(subset=['arxiv'])
+
+    #filter replaced articles (indicated by replaced in the arxiv id)
+    darticles = darticles[~darticles.arxiv.str.contains("replaced")]
+
+    #print darticles date
+    print(darticles.arxiv)
+
+
+
+
+
+
+
+
+    
 
