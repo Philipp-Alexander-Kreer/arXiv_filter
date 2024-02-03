@@ -132,9 +132,10 @@ if __name__ == '__main__':
         print("\n\n",darticles.loc[i, 'title'])
 
         # ask the user if the abstract should be opened
-        user_input = input("Do you want to open the abstract? (y/n) ")
+        user_input = input("\nDo you want to open the abstract? (y/n) ")
 
         if user_input == 'y':
+            print("\n")
             darticles.loc[i, 'label'] = 1
 
             #print the abstract
@@ -145,7 +146,7 @@ if __name__ == '__main__':
 
             chunk_size = 15  # Adjust as needed
             empty_space_positions = [i for i, ltr in enumerate(long_string) if ltr == ' '][0::chunk_size]
-            print(empty_space_positions)
+
 
             for i in range(len(empty_space_positions)):
                 if i == len(empty_space_positions)-1:
@@ -153,11 +154,10 @@ if __name__ == '__main__':
                 else:
                     print(long_string[empty_space_positions[i]:empty_space_positions[i+1]])
 
-            #for i in range(0, len(long_string), chunk_size):
-            #    print(long_string[i:i + chunk_size])
+
 
             #ask the user if the link should be opened
-            user_input = input("Do you want to open the article? (y/n) ")
+            user_input = input("\nDo you want to open the article? (y/n) ")
             if user_input == 'y':
 
                 darticles.loc[i, 'label'] = 2
