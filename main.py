@@ -112,8 +112,6 @@ if __name__ == '__main__':
     #flatten articles
     articles = [item for sublist in articles for item in sublist]
 
-    print(articles[0].arxiv, articles[0].link)
-
 
     #convert articles into a pandas dataframe
     darticles = pd.DataFrame([vars(i) for i in articles])
@@ -123,8 +121,8 @@ if __name__ == '__main__':
 
     #filter replaced articles (indicated by replaced in the arxiv id)
     darticles = darticles[~darticles.arxiv.str.contains("replaced")]
-    #print(darticles.head(5))
-    print(darticles[['arxiv','link']])
+
+
     #load remove_words.txt
     with open("remove_words.txt", "r") as f:
         remove_words = [line.split(', ') for line in f.read().splitlines()]
