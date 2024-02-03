@@ -1,6 +1,8 @@
 import pandas as pd
 import os
 from datetime import date
+import webbrowser
+
 
 #Function which loads the eml file and returns the body of the email
 def load_articles(file_path):
@@ -96,7 +98,11 @@ class Article:
 
 if __name__ == '__main__':
 
+    #set the email directory and the browser
     email_directory = "/home/philipp/Downloads/"
+    browser = webbrowser.get('firefox')
+    #set auto_open to False if you want to open the new tab in the background
+    auto_open = False
 
     # get email filenames and load them
     email_filenames = [email_directory + f for f in os.listdir(email_directory) if f.endswith(".eml")]
@@ -105,6 +111,8 @@ if __name__ == '__main__':
     articles = [[Article(article) for article in load_articles(email)] for email in email_filenames]
     #flatten articles
     articles = [item for sublist in articles for item in sublist]
+
+    print(articles[0].arxiv, articles[0].link)
 
 
     #convert articles into a pandas dataframe
@@ -115,7 +123,8 @@ if __name__ == '__main__':
 
     #filter replaced articles (indicated by replaced in the arxiv id)
     darticles = darticles[~darticles.arxiv.str.contains("replaced")]
-
+    #print(darticles.head(5))
+    print(darticles[['arxiv','link']])
     #load remove_words.txt
     with open("remove_words.txt", "r") as f:
         remove_words = [line.split(', ') for line in f.read().splitlines()]
@@ -130,6 +139,7 @@ if __name__ == '__main__':
     for i in darticles[darticles['label'] == 0].index:
         #print the title
         print("\n\n",darticles.loc[i, 'title'])
+        #print("\n\n", darticles.loc[i, ['arxiv','link']])
 
         # ask the user if the abstract should be opened
         user_input = input("\nDo you want to open the abstract? (y/n) ")
@@ -148,11 +158,11 @@ if __name__ == '__main__':
             empty_space_positions = [i for i, ltr in enumerate(long_string) if ltr == ' '][0::chunk_size]
 
 
-            for i in range(len(empty_space_positions)):
-                if i == len(empty_space_positions)-1:
-                    print(long_string[empty_space_positions[i]:])
+            for line_break in range(len(empty_space_positions)):
+                if line_break == len(empty_space_positions)-1:
+                    print(long_string[empty_space_positions[line_break]:])
                 else:
-                    print(long_string[empty_space_positions[i]:empty_space_positions[i+1]])
+                    print(long_string[empty_space_positions[line_break]:empty_space_positions[line_break+1]])
 
 
 
@@ -161,7 +171,10 @@ if __name__ == '__main__':
             if user_input == 'y':
 
                 darticles.loc[i, 'label'] = 2
-                os.system("open " + darticles.loc[i, 'link'])
+                link = darticles.loc[i, 'link']
+                # open the link new=2 opens the link in a new tab
+                browser.open(link, new=2, autoraise=auto_open)
+
 
 
     #save the dataframe to a csv file with the current date
