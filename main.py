@@ -6,11 +6,13 @@ def load_articles(file_path):
     """Loads an eml file and returns the body of the email. """
     with open(file_path, 'r') as f:
 
-        body = f.read().split('arXiv:')[1:]
-        body = ['arXiv:' + i for i in body]
 
-        #remove the last part of the body which is not an article and add the end of the article
-        body[-1] = body[-1].split('%%%---%%%')[0] + "----\n\\\\"
+        # cut end of the email
+        body = f.read().split('%%--%%--%%')[0] + "----\n\\\\"
+
+        #cut header of the email
+        body = body.split('arXiv:')[1:]
+        body = ['arXiv:' + i for i in body]
 
         return body
 
@@ -56,6 +58,18 @@ def extract_article_info(article):
     return article_info
 
 
+def filter_title(title, remove_words):
+    """Filters the title of the article and returns a label. """
+
+    #Check if title contains remove_words
+    if any(word in title.lower() for word in remove_words):
+        return -1
+    else:
+        return 0
+
+
+
+
 class Article:
     def __init__(self, article):
 
@@ -76,6 +90,9 @@ class Article:
         self.label = article_info['label']
 
 
+
+
+
 if __name__ == '__main__':
 
     articles = [Article(i) for i in load_articles("test_mail.eml")]
@@ -90,7 +107,45 @@ if __name__ == '__main__':
     darticles = darticles[~darticles.arxiv.str.contains("replaced")]
 
     #print darticles date
-    print(darticles.arxiv)
+    print(len(darticles))
+
+    #load remove_words.txt
+    with open("remove_words.txt", "r") as f:
+        remove_words = [line.split(', ') for line in f.read().splitlines()]
+        #flatten the list and lower the words
+
+        remove_words = [word.lower() for sublist in remove_words for word in sublist]
+
+    #filter articles based on title
+    darticles.loc[darticles['label'] == 'NA', 'label'] = darticles[darticles['label'] == 'NA'].title.apply(lambda x: filter_title(x, remove_words))
+
+    # loop over darticles with label 1
+    for i in darticles[darticles['label'] == 0].index:
+        #print the title
+        print(darticles.loc[i, 'title'])
+
+        # ask the user if the abstract should be opened
+        user_input = input("Do you want to open the abstract? (y/n) ")
+        if user_input == 'y':
+            darticles.loc[i, 'label'] = 1
+
+            #print the abstract
+            print(darticles.loc[i, 'abstract'])
+
+            #ask the user if the link should be opened
+            user_input = input("Do you want to open the article? (y/n) ")
+            if user_input == 'y':
+
+                darticles.loc[i, 'label'] = 2
+                os.system("open " + darticles.loc[i, 'link'])
+
+
+    print(darticles.label.value_counts())
+
+
+
+
+
 
 
 
