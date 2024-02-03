@@ -138,7 +138,23 @@ if __name__ == '__main__':
             darticles.loc[i, 'label'] = 1
 
             #print the abstract
-            print(darticles.loc[i, 'abstract'])
+            #print(darticles.loc[i, 'abstract'])
+            long_string = darticles.loc[i, 'abstract']
+
+            #Find postions of empty spaces in the string
+
+            chunk_size = 15  # Adjust as needed
+            empty_space_positions = [i for i, ltr in enumerate(long_string) if ltr == ' '][0::chunk_size]
+            print(empty_space_positions)
+
+            for i in range(len(empty_space_positions)):
+                if i == len(empty_space_positions)-1:
+                    print(long_string[empty_space_positions[i]:])
+                else:
+                    print(long_string[empty_space_positions[i]:empty_space_positions[i+1]])
+
+            #for i in range(0, len(long_string), chunk_size):
+            #    print(long_string[i:i + chunk_size])
 
             #ask the user if the link should be opened
             user_input = input("Do you want to open the article? (y/n) ")
