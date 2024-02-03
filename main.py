@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+from datetime import date
 
 #Function which loads the eml file and returns the body of the email
 def load_articles(file_path):
@@ -95,7 +96,16 @@ class Article:
 
 if __name__ == '__main__':
 
-    articles = [Article(i) for i in load_articles("test_mail.eml")]
+    email_directory = "Email_Directory/"
+
+    # get email filenames and load them
+    email_filenames = [email_directory + f for f in os.listdir(email_directory) if f.endswith(".eml")]
+    print("The following emails will be loaded: ", email_filenames)
+
+    articles = [[Article(article) for article in load_articles(email)] for email in email_filenames]
+    #flatten articles
+    articles = [item for sublist in articles for item in sublist]
+
 
     #convert articles into a pandas dataframe
     darticles = pd.DataFrame([vars(i) for i in articles])
@@ -105,9 +115,6 @@ if __name__ == '__main__':
 
     #filter replaced articles (indicated by replaced in the arxiv id)
     darticles = darticles[~darticles.arxiv.str.contains("replaced")]
-
-    #print darticles date
-    print(len(darticles))
 
     #load remove_words.txt
     with open("remove_words.txt", "r") as f:
@@ -126,6 +133,7 @@ if __name__ == '__main__':
 
         # ask the user if the abstract should be opened
         user_input = input("Do you want to open the abstract? (y/n) ")
+        user_input = 'n'
         if user_input == 'y':
             darticles.loc[i, 'label'] = 1
 
@@ -140,7 +148,24 @@ if __name__ == '__main__':
                 os.system("open " + darticles.loc[i, 'link'])
 
 
-    print(darticles.label.value_counts())
+    #save the dataframe to a csv file with the current date
+
+    today = date.today()
+    darticles.to_csv("Data/articles_"+str(today)+".csv", index=False)
+
+    #print statistics
+    print("\n\n\n\n Statistics: \n\n")
+    print("You filtered ", len(darticles[darticles['label'] == -1]), "of", len(darticles), "articles.")
+    print("You opened ", len(darticles[darticles['label'] == 1]), "of", len(darticles), "abstracts.")
+    print("You opened ", len(darticles[darticles['label'] == 2]), "of", len(darticles), "articles.")
+
+    #delete the emails if the user wants to
+    user_input = input("Do you want to delete the emails? (y/n) ")
+    if user_input == 'y':
+        for email in email_filenames:
+            os.remove(email)
+        print("Emails deleted.")
+    print("Have a nice day and thank you for using the arXiv filter :-)")
 
 
 
