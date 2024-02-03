@@ -12,7 +12,7 @@ def load_articles(file_path):
         body = f.read().split('%%--%%--%%')[0] + "----\n\\\\"
 
         #cut header of the email
-        body = body.split('arXiv:')[1:]
+        body = body.split('\\\\\narXiv:')[1:]
         body = ['arXiv:' + i for i in body]
 
         return body
@@ -96,7 +96,7 @@ class Article:
 
 if __name__ == '__main__':
 
-    email_directory = "Email_Directory/"
+    email_directory = "/home/philipp/Downloads/"
 
     # get email filenames and load them
     email_filenames = [email_directory + f for f in os.listdir(email_directory) if f.endswith(".eml")]
