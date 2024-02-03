@@ -129,11 +129,11 @@ if __name__ == '__main__':
     # loop over darticles with label 1
     for i in darticles[darticles['label'] == 0].index:
         #print the title
-        print(darticles.loc[i, 'title'])
+        print("\n\n",darticles.loc[i, 'title'])
 
         # ask the user if the abstract should be opened
         user_input = input("Do you want to open the abstract? (y/n) ")
-        user_input = 'n'
+
         if user_input == 'y':
             darticles.loc[i, 'label'] = 1
 
