@@ -21,6 +21,18 @@ class Article:
         self.link = article_info['link']
         self.label = article_info['label']
 
+def load_settings():
+    """Loads the settings from the settings file. """
+    with open("settings.config", 'r') as f:
+        settings = f.read().split("\n")[1::2]
+        print(settings[0])
+
+    email_directory = settings[0]
+    browser = webbrowser.get(settings[1])
+    auto_open = settings[2]
+
+    return email_directory, browser, auto_open
+
 def load_articles(file_path):
     """Loads an eml file and returns the body of the email. """
     with open(file_path, 'r') as f:
@@ -115,6 +127,10 @@ def prepare_dataframe(email_directory):
     # get all the email filenames
     email_filenames = get_email_filenames(email_directory)
 
+    # if email_filenames is empty raise an error
+    if not email_filenames:
+        raise ValueError("No emails found in the directory.")
+
     articles = [[Article(article) for article in load_articles(email)] for email in email_filenames]
     # flatten articles
     articles = [item for sublist in articles for item in sublist]
@@ -181,6 +197,7 @@ def delete_emails(email_directory):
     """Ask user if the emails should be deleted. """
     user_input = input("Do you want to delete the emails? (y/n) ")
     email_filenames = get_email_filenames(email_directory)
+
     if user_input == 'y':
         for email in email_filenames:
             os.remove(email)
