@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-from datetime import date
 import webbrowser
 class Article:
     def __init__(self, article):
@@ -30,8 +29,9 @@ def load_settings():
     email_directory = settings[0]
     browser = webbrowser.get(settings[1])
     auto_open = settings[2]
+    saveQ = settings[3]
 
-    return email_directory, browser, auto_open
+    return email_directory, browser, auto_open, saveQ
 
 def load_articles(file_path):
     """Loads an eml file and returns the body of the email. """
@@ -196,9 +196,10 @@ def print_statistics(darticles):
 def delete_emails(email_directory):
     """Ask user if the emails should be deleted. """
     user_input = input("Do you want to delete the emails? (y/n) ")
-    email_filenames = get_email_filenames(email_directory)
+
 
     if user_input == 'y':
+        email_filenames = get_email_filenames(email_directory)
         for email in email_filenames:
             os.remove(email)
         print("Emails deleted.")
@@ -207,4 +208,4 @@ def delete_emails(email_directory):
         return None
     else:
         print("Invalid input. Please enter 'y' or 'n'.")
-        delete_emails(email_filenames)
+        return delete_emails(email_directory)

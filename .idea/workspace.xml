@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7758163-3401-4444-985a-4bed0423f96c" name="Changes" comment="Created module arXiv_filter.py">
+    <list default="true" id="c7758163-3401-4444-985a-4bed0423f96c" name="Changes" comment="working version">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/articles_2024-02-06.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/articles_2024-02-06.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/articles_2024-02-06_1.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/arXiv_filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/arXiv_filter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/remove_words.txt" beforeDir="false" afterPath="$PROJECT_DIR$/remove_words.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.config" beforeDir="false" afterPath="$PROJECT_DIR$/settings.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_mail_safty.eml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +43,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/philipp/Documents/Cluster_Space/arXiv_Filter/pythonProject/Data",
+    "last_opened_file_path": "/home/philipp/Documents/Cluster_Space/arXiv_Filter/pythonProject",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
 }]]></component>
@@ -178,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707163080508</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="working version">
+      <option name="closed" value="true" />
+      <created>1707165400457</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1707165400457</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -203,7 +214,8 @@
     <MESSAGE value="Internet brwser selection" />
     <MESSAGE value="Updated user interface" />
     <MESSAGE value="Created module arXiv_filter.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created module arXiv_filter.py" />
+    <MESSAGE value="working version" />
+    <option name="LAST_COMMIT_MESSAGE" value="working version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -214,12 +226,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>41</line>
+          <line>40</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/arXiv_filter.py</url>
-          <line>202</line>
+          <line>203</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>

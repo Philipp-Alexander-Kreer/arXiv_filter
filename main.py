@@ -1,12 +1,11 @@
 from datetime import date
-import webbrowser
 import arXiv_filter
-import pandas as pd
+
 
 
 def arXiv_filter_main():
     # load the settings
-    email_directory, browser, auto_open = arXiv_filter.load_settings()
+    email_directory, browser, auto_open, saveQ = arXiv_filter.load_settings()
 
     darticles = arXiv_filter.prepare_dataframe(email_directory)
 
@@ -26,9 +25,9 @@ def arXiv_filter_main():
             darticles.loc[i, 'label'] = arXiv_filter.open_link(darticles.loc[i, 'link'], browser, auto_open)
 
     # save the dataframe to a csv file with the current date
-
-    today = date.today()
-    darticles.to_csv("Data/articles_" + str(today) + ".csv", index=False)
+    if saveQ:
+        today = date.today()
+        darticles.to_csv("Data/articles_" + str(today) + ".csv", index=False)
 
     arXiv_filter.print_statistics(darticles)
 

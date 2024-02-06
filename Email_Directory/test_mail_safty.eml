@@ -1,0 +1,947 @@
+Received: from AS4PR10MB5394.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:4bc::22)
+ by VI1PR10MB3534.EURPRD10.PROD.OUTLOOK.COM with HTTPS; Mon, 22 Jan 2024
+ 02:40:27 +0000
+Received: from DB8P191CA0030.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:130::40)
+ by AS4PR10MB5394.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:4bc::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.30; Mon, 22 Jan
+ 2024 02:40:25 +0000
+Received: from DB8EUR06FT039.eop-eur06.prod.protection.outlook.com
+ (2603:10a6:10:130:cafe::66) by DB8P191CA0030.outlook.office365.com
+ (2603:10a6:10:130::40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.31 via Frontend
+ Transport; Mon, 22 Jan 2024 02:40:25 +0000
+Authentication-Results: spf=pass (sender IP is 129.187.255.130)
+ smtp.mailfrom=srs.mail.lrz.de; dkim=pass (signature was verified)
+ header.d=arxiv.org;dmarc=pass action=none header.from=arXiv.org;compauth=pass
+ reason=100
+Received-SPF: Pass (protection.outlook.com: domain of srs.mail.lrz.de
+ designates 129.187.255.130 as permitted sender)
+ receiver=protection.outlook.com; client-ip=129.187.255.130;
+ helo=forwout1.mail.lrz.de; pr=C
+Received: from forwout1.mail.lrz.de (129.187.255.130) by
+ DB8EUR06FT039.mail.protection.outlook.com (10.233.253.36) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7181.37 via Frontend Transport; Mon, 22 Jan 2024 02:40:24 +0000
+X-IncomingTopHeaderMarker:
+ OriginalChecksum:6106643417B9D9702B4D1033E5A3BD20EB40B549448F4622DE4BD081F8AC4FD2;UpperCasedChecksum:E9FA5DB934AFA1A32EF33B9C106DABB7803E3441068C216A271F0DA9DE8CC914;SizeAsReceived:4457;Count:25
+Received: from postforw2.mail.lrz.de (postforw.mail.lrz.de [IPv6:2001:4ca0:0:116::a9c:63e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by forwout1.mail.lrz.de (Postfix) with ESMTPS id 4TJDwS0BtJzt8;
+	Mon, 22 Jan 2024 03:40:24 +0100 (CET)
+Received: from postrelay2.lrz.de (lxmhs60.srv.lrz.de [IPv6:2001:4ca0:0:116::a9c:63c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by postforw2.mail.lrz.de (Postfix) with ESMTPS id 4TJDwR6yh9zyVY;
+	Mon, 22 Jan 2024 03:40:23 +0100 (CET)
+Received: from lxmhs60.srv.lrz.de (localhost [127.0.0.1])
+	by postrelay2.lrz.de (Postfix) with ESMTP id 4TJDwR6mvqzyQ4;
+	Mon, 22 Jan 2024 03:40:23 +0100 (CET)
+X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs60.srv.lrz.de
+X-Spam-Flag: NO
+X-Spam-Score: -4.382
+X-Spam-Level:
+X-Spam-Status: No, score=-4.382 tagged_above=-999 required=5
+	tests=[BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
+	DKIM_VALID_AU=-0.1, DKIM_VALID_EF=-0.1, DMARC_ADKIM_RELAXED=0.001,
+	DMARC_ASPF_RELAXED=0.001, DMARC_PASS_NONE=0.001,
+	DMARC_POLICY_NONE=0.001, LRZ_DATE_TZ_M0500=0.001,
+	LRZ_DMARC_PASS=0.001, LRZ_DMARC_POLICY=0.001,
+	LRZ_ENVFROM_FROM_MATCH=0.001, LRZ_FROM_DKIM_ALIGNED_STRICT=0.001,
+	LRZ_FROM_ENVFROM_ALIGNED_STRICT=0.001, LRZ_FROM_HAS_A=0.001,
+	LRZ_FROM_HAS_MDOM=0.001, LRZ_FROM_HAS_MX=0.001,
+	LRZ_FROM_MX_GOOGLE=0.001, LRZ_HAS_REPLY_TO=0.001, LRZ_HAS_SPF=0.001,
+	LRZ_HAS_URL_HTTP=0.001, LRZ_MSGID_AN_AN=0.001,
+	LRZ_MSGID_CLIENT_MISSING=0.001, LRZ_MSGID_FROM_MTA=0.001,
+	LRZ_MSGID_MTA=0.001, LRZ_MSGID_SENDMAIL=0.001, LRZ_NO_UA_HEADER=0.001,
+	LRZ_RCVD_FIRST_NO_AUTH=0.001, LRZ_RCVD_FIRST_NO_MSA=0.001,
+	LRZ_RCVD_LOC_SUB_SENDMAIL=0.001, LRZ_SPF_HAS_FAIL_ALL=0.001,
+	LRZ_URL_PLAIN_SINGLE=0.001, RCVD_IN_DNSWL_MED=-2.3,
+	SPF_HELO_NONE=0.001, SPF_PASS=-0.001, T_SCC_BODY_TEXT_LINE=-0.01]
+	autolearn=no autolearn_force=no
+X-Spam-ASN: AS26 128.84.0.0/16
+Authentication-Results-Original: postrelay.lrz.de (amavisd-new);	dkim=pass
+ (2048-bit key) header.d=arxiv.org
+Received: from postrelay2.lrz.de ([127.0.0.1])
+	by lxmhs60.srv.lrz.de (lxmhs60.srv.lrz.de [127.0.0.1]) (amavisd-new, port 10001)
+	with ESMTP id 7fWA5x6d6-EU; Mon, 22 Jan 2024 03:40:19 +0100 (CET)
+Received: from mail.arxiv.org (mail.arxiv.org [128.84.4.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by postrelay2.lrz.de (Postfix) with ESMTPS;
+	Mon, 22 Jan 2024 03:40:18 +0100 (CET)
+Received: from lib-arxiv-033.serverfarm.cornell.edu (lib-arxiv-033.serverfarm.cornell.edu [128.84.4.33])
+	by lib-arxiv-039.serverfarm.cornell.edu (8.15.2/8.15.2) with ESMTPS id 40M2dPhY3353993
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Sun, 21 Jan 2024 21:39:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arxiv.org; s=lk1;
+	t=1705891166; bh=XbB5qI+5K4vf8Uz3/Z8Uz5e7hQjk3NP3bu/hwZQkudA=;
+	h=Date:From:Reply-To:To:Subject:From;
+	b=mJTqPRj9Et25ph5v3Rrpwu1OImoThOUd54gP8a8qTML59G2Ihr2bebo/fV+TJy8e5
+	 sQVwxpH9q/ffTbh9oUkkvE74RzSQoajAC1r6O0miAO0GhiWW2QzxAYOf38KGgNHJrn
+	 KFMzdJeQnc/aqFK9qjJui0htsSO1v4SU2JWE9Iy9zPOP/n4N3biblh1HlPUHUegNyX
+	 Nv3cBcW/o/R8sohKz6TN+UikYq9caCfBn36+Q+TsJalaE/euDpXJxFV9SoOWAGvp7A
+	 IDt0LB6CqH2RhRj8IaR/0SzkBO3+Z9Y7Hngw/DN8eZj1gNzbPJqbGDOTbYJFksUlOf
+	 QDJOVPjYsGsog==
+Received: from lib-arxiv-033.serverfarm.cornell.edu (localhost [127.0.0.1])
+	by lib-arxiv-033.serverfarm.cornell.edu (8.14.7/8.14.7) with ESMTP id 40M2dP18027288;
+	Sun, 21 Jan 2024 21:39:25 -0500
+Received: (from e-prints@localhost)
+	by lib-arxiv-033.serverfarm.cornell.edu (8.14.7/8.14.7/Submit) id 40M2dM6t027231;
+	Sun, 21 Jan 2024 21:39:22 -0500
+Date: Sun, 21 Jan 2024 21:39:22 -0500
+Message-Id: <202401220239.40M2dM6t027231@lib-arxiv-033.serverfarm.cornell.edu>
+X-Authentication-Warning: lib-arxiv-033.serverfarm.cornell.edu: e-prints set sender to no-reply@arXiv.org using -f
+Precedence: bulk
+From: no-reply@arXiv.org (send mail ONLY to hep-ph)
+Reply-To: hep-ph@arXiv.org
+To: rabble@arXiv.org (hep-ph daily title/abstract distribution)
+Subject: hep-ph daily 10 new + 11 crosses received 101
+X-IncomingHeaderCount: 25
+Return-Path: SRS0=iG2t=JA=arXiv.org=no-reply@srs.mail.lrz.de
+X-MS-Exchange-Organization-ExpirationStartTime: 22 Jan 2024 02:40:24.8750
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ f77cbf2b-572e-42e1-e25e-08dc1af37c8c
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic:
+ DB8EUR06FT039:EE_|AS4PR10MB5394:EE_|VI1PR10MB3534:EE_
+Content-Type: text/plain
+X-MS-Exchange-Organization-AuthSource:
+ DB8EUR06FT039.eop-eur06.prod.protection.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 1/22/2024 2:37:30 AM
+X-MS-Office365-Filtering-Correlation-Id: f77cbf2b-572e-42e1-e25e-08dc1af37c8c
+X-MS-Exchange-EOPDirect: true
+X-Sender-IP: 129.187.255.130
+X-SID-PRA: NO-REPLY@ARXIV.ORG
+X-SID-Result: PASS
+X-MS-Exchange-Organization-PCL: 2
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:3;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 02:40:24.8125
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f77cbf2b-572e-42e1-e25e-08dc1af37c8c
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource:
+ DB8EUR06FT039.eop-eur06.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+ 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR10MB5394
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:02.4306131
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.7202.028
+X-Microsoft-Antispam-Mailbox-Delivery:
+	wl:1;pcwl:1;ucf:1;jmr:0;ex:0;auth:1;dest:C;OFR:CustomRules;ENG:(5062000305)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9065024)(9100341)(944500132)(4810010)(4910033)(9575002)(10195002)(9439006)(9310011)(9220031)(120001);
+X-Message-Info:
+	qZelhIiYnPkx84CNH6AeQraZAZ3cD9dv91AA2QBxU0jKCuJ/yzH6YTJPkflM78TnICQjEUGgFCDKc1RleFZqnnrrcNymk2T2MbAOR9E9iOkzDK8ARJjwEeaR9GMedjIdy+dMtrOfTRAiHKOeG+RJZDKTPkHlqjXCbB+u6jRK34i8ylchF0Vttme+WPyPjxeqYOc+3QOSbnbFxcn/9JBcKA==
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0xO0Q9MTtHRD0xO1NDTD0tMQ==
+X-Microsoft-Antispam-Message-Info:
+	=?iso-8859-1?Q?s+h9QrhS8+6NlMhFGUx7sT75Lk0EwP0CPuc+TJDxj2S34/Ix22uy4f2dLP?=
+ =?iso-8859-1?Q?jjQiNJ3acZ+/AOZahfdoCxR25N8B6x9Kd0czlIWYWuhzykrkOm1jvpvwlC?=
+ =?iso-8859-1?Q?hBBQbpjIvLG2Kl28aL2fUb1HORXrjnevUbfbqJgYH/Py5dnRL1YpZVB5RN?=
+ =?iso-8859-1?Q?UXGy1/xFjI4jKSTtnFBzKcg6tluJMpuJ6RSR+2X1zYJDRWubog4uS8m3fF?=
+ =?iso-8859-1?Q?V4lUVQKSbnPM2P+6m71GVFZMurOLEg26Uc9QwpxG8+ziuurrBotr/Fj1bd?=
+ =?iso-8859-1?Q?B8wPI0Fq0NS4N5FJWHU+6GOwSuBmeuH06JBg0uHSp93AOeqPAX9iGfDiBQ?=
+ =?iso-8859-1?Q?7NVWEMvtMfjY7/ZCqogojZwr9giRwVbIBl3cytreE4mdDYnYw5pp8mCqFv?=
+ =?iso-8859-1?Q?iWmhPDp2gGXt+MazQEbb3PjOVz8nieKmFgtRDH5IQN7nU3E8rYmxlR9qe1?=
+ =?iso-8859-1?Q?AD76ZJArGHJEf2fdDK2YDKHREjvfE/ROfM7TDcHXGVOc8Y6przznFN2/6t?=
+ =?iso-8859-1?Q?iylPDQPRJ0zdf+hlGf5Pfe3/1N8xfKIG5Ww1Wd9KnIQDPxzzKJRpmR6cAu?=
+ =?iso-8859-1?Q?tyueHAn/6sC8p35K0eDqKD0ahdb7mXE3jTPwY++jDUU+iUXRS4w/VYcXEF?=
+ =?iso-8859-1?Q?Xdu3Ul9mLHBU8mRebOK1Gm0dWlBZMsqr9bMSVlD3uloYemMDiCSL0j9DSI?=
+ =?iso-8859-1?Q?JIyt5TKrUlUe9XlJzCH5/Kbo0zHpLqiHi98fPk+I60eUulg62G3u7ykmOX?=
+ =?iso-8859-1?Q?NY0Ev/r95i4xwAnCHFDBp7sA5l4d/yX77/lKz9zVkoPY3eDdy5z+OXPYit?=
+ =?iso-8859-1?Q?ge1XpcfdJjmyquJ4RIGgshS1M84Gz30a/xPR/AQIeZueNWx8iINJmyXtlZ?=
+ =?iso-8859-1?Q?xem+TMosmdZbYO648x22qN0EpBlR2R/4LbL9RetjyHh4dQbwFD9Rx0PLVN?=
+ =?iso-8859-1?Q?AwqKaJ41z9IJJE6JWInrWskDvIRsIGFNrSYa5E6AMi28G1B8V428mcvAtz?=
+ =?iso-8859-1?Q?MVOkTsfzPAukk701D88/fJbxV3DbUxMtbs1aa9eJTcfJG0Rw6YXb4ISfOy?=
+ =?iso-8859-1?Q?/dpVKKdxdWqcUxgz5XNBQ+6KrBsF3qy8gO/rNAp5Mi+dKApEKSB4EOgSDv?=
+ =?iso-8859-1?Q?1pH6ssl0Oi7X6Ynm7qFix9GMRId8noE7e2AE+LSYoATPo6utorYjSk4Lq8?=
+ =?iso-8859-1?Q?nrKCHiMsEMOx311XXc06iIWINdClHYmFVf0VRLAYg03uXFXgzjTFl01UBs?=
+ =?iso-8859-1?Q?N2fXbamxlrxrmzLnIXR+BFrxPo1RkM0FvEakdHG+Y6w7nGprlrhMojWNVz?=
+ =?iso-8859-1?Q?IcmIJ8cs4+OmtPmloiTyr8WRrGsrOFF6lk93ide7bkJMvn6pSqF0f6yF2p?=
+ =?iso-8859-1?Q?Pe1tjlx367K7s9nWZ/oh71qMGX1HhapYepCvi4fjEU604fEk0CAe0qVhRL?=
+ =?iso-8859-1?Q?rw4A8FX+Th516nHSOvHr0oRKZ+Eci0pTK/890fJVTvM1YWLvNOboiKsgCo?=
+ =?iso-8859-1?Q?QYEWJc93Sa4pAqr8QZy2+NbZ4iVjyPH2QNe+3uF8f2Yr7qZgCC+vq3c3B7?=
+ =?iso-8859-1?Q?+jT3hqgEb89fMjWWE5Z1ubdKe385VDBd6/p5yhaMummKcU8Gs7OVEfF5ZV?=
+ =?iso-8859-1?Q?KEqw9aYUf7Yvyp03dMbHQAhUlKIJHhJ2a20cNaXQActbqZHgE/39J1wXP3?=
+ =?iso-8859-1?Q?8CMkQJSmPu1MfG91xkaUAuCFs2lytSbjzLmO8llEnMxe1TMQCdeuuKuc55?=
+ =?iso-8859-1?Q?EJ2LhFLzCAI54CFJE75MtMwuCtUdjxmEZ8VP88ddRVPgeYPgrJwJeL6ifn?=
+ =?iso-8859-1?Q?2P1S4A9ozLrlotVrWcQcE0AHzPWwzMgy/BYtE8wi/uZxqJueWLhKzzC5b5?=
+ =?iso-8859-1?Q?0KUBbp5/KgsD/xiA=3D=3D?=
+MIME-Version: 1.0
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Send any comments regarding submissions directly to submitter.
+------------------------------------------------------------------------------
+Archives at http://arxiv.org/
+To unsubscribe, e-mail To: hep-ph@arXiv.org, Subject: cancel
+------------------------------------------------------------------------------
+received from  Thu 18 Jan 24 19:00:00 GMT  to  Fri 19 Jan 24 19:00:00 GMT
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10301
+Date: Thu, 18 Jan 2024 09:46:26 GMT   (61kb)
+
+Title: Determination of quark and lepton masses and mixings in the microscopic
+  model
+Authors: Bodo Lampe
+Categories: hep-ph
+Comments: Contribution to the European Physical Society Conference on High
+  Energy Physics (EPS-HEP2023), 21-25 August 2023, Hamburg. Part of the
+  contribution recapitulates results of my earlier original work
+Journal-ref: Proceedings of The European Physical Society Conference on High
+  Energy Physics, PoS(EPS-HEP2023), 449 (2024) 373
+DOI: 10.22323/1.449.0373
+\\
+  Recently, formulas for the mixing matrices of quarks and leptons have been
+put forward. My contribution here describes the relevant foundational and
+technical aspects which have led to those results. The work has been carried
+out in the framework of the microscopic model. The most general ansatz for the
+interactions among tetrons leads to a Hamiltonian H involving
+Dzyaloshinskii-Moriya (DM), Heisenberg and torsional isospin forces.
+Diagonalization of the Hamiltonian provides for 24 eigenvalues which are
+identified as the quark and lepton masses. While the masses of the third and
+second family arise from DM and Heisenberg type of isospin interactions, light
+family masses are related to torsional interactions among tetrons. Neutrino
+masses turn out to be special in that they are given in terms of tiny isospin
+non-conserving DM, Heisenberg and torsional couplings. The approach not only
+leads to masses, but also allows to calculate the quark and lepton eigenstates,
+an issue, which is important for the determination of the CKM and PMNS mixing
+matrices. The almost exact isospin conservation of the system dictates the form
+of the lepton states and makes them independent of all the couplings in H. Much
+in contrast, there is a strong dependence of the quark states on the coupling
+strengths, and a promising hierarchy between the quark family mixings shows up.
+\\ ( https://arxiv.org/abs/2401.10301 ,  61kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10319
+Date: Thu, 18 Jan 2024 19:00:00 GMT   (12103kb,D)
+
+Title: Determination of the theory uncertainties from missing higher orders on
+  NNLO parton distributions with percent accuracy
+Authors: The NNPDF Collaboration: Richard D. Ball, Andrea Barontini, Alessandro
+  Candido, Stefano Carrazza, Juan Cruz-Martinez, Luigi Del Debbio, Stefano
+  Forte, Tommaso Giani, Felix Hekhorn, Zahari Kassabov, Niccol\`o Laurenti,
+  Giacomo Magni, Emanuele R. Nocera, Tanjona R. Rabemananjara, Juan Rojo,
+  Christopher Schwan, Roy Stegeman, and Maria Ubiali
+Categories: hep-ph
+Comments: 23 pages, 6 figures
+Report-no: TIF-UNIMI-2023-22, Edinburgh 2023/34, CERN-TH-2024-009
+\\
+  We include uncertainties due to missing higher order corrections to QCD
+computations (MHOU) used in the determination of parton distributions (PDFs) in
+the recent NNPDF4.0 set of PDFs. We use our previously published methodology,
+based on the treatment of MHOUs and their full correlations through a theory
+covariance matrix determined by scale variation, now fully incorporated in the
+new NNPDF theory pipeline. We assess the impact of the inclusion of MHOUs on
+the NNPDF4.0 central values and uncertainties, and specifically show that they
+lead to improved consistency of the PDF determination with an ensuing moderate
+reduction of PDF uncertainties at NNLO.
+\\ ( https://arxiv.org/abs/2401.10319 ,  12103kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10320
+Date: Thu, 18 Jan 2024 19:00:00 GMT   (35395kb,D)
+
+Title: Energy-momentum tensor of the dilute (3+1)D Glasma
+Authors: Andreas Ipp, Markus Leuthner, David I. M\"uller, S\"oren Schlichting,
+  Kayran Schmidt, Pragya Singh
+Categories: hep-ph nucl-th
+Comments: 20 pages, 15 figures, 2 videos
+\\
+  We present a succinct formulation of the energy-momentum tensor of the Glasma
+characterizing the initial color fields in relativistic heavy-ion collisions in
+the Color Glass Condensate effective theory. We derive concise expressions for
+the (3+1)D dynamical evolution of symmetric nuclear collisions in the weak
+field approximation employing a generalized McLerran-Venugopalan model with
+non-trivial longitudinal correlations. Utilizing Monte Carlo integration, we
+calculate in unprecedented detail non-trivial rapidity profiles of early-time
+observables at RHIC and LHC energies, including transverse energy densities and
+eccentricities. For our setup with broken boost invariance, we carefully
+discuss the placement of the origin of the Milne frame and interpret the
+components of the energy-momentum tensor. We find longitudinal flow that
+deviates from standard Bjorken flow in the (3+1)D case and provide a geometric
+interpretation of this effect. Furthermore, we observe a universal shape in the
+flanks of the rapidity profiles regardless of collision energy and predict that
+limiting fragmentation should also hold at LHC energies.
+\\ ( https://arxiv.org/abs/2401.10320 ,  35395kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10323
+Date: Thu, 18 Jan 2024 19:00:01 GMT   (626kb,D)
+
+Title: A rotation-equivariant graph neural network for learning hadronic SMEFT
+  effects
+Authors: Suman Chatterjee, Sergio S\'anchez Cruz, Robert Sch\"ofbeck, Dennis
+  Schwarz
+Categories: hep-ph hep-ex
+Comments: 9 pages, 5 figures
+\\
+  We introduce a graph neural network architecture designed to extract novel
+phenomena in the Standard Model Effective Field Theory (SMEFT) context from LHC
+collision data. The proposed infrared- and collinear-safe architecture is
+sensitive to the angular orientation of radiation patterns in jets from
+hadronic decays of highly energetic massive particles. Equivariance with
+respect to rotations around the jet axis allows for extracting the information
+on the angular orientation decoupled from the jet substructure. We demonstrate
+the robustness of the approach and its potential for future probes of the SMEFT
+at the LHC through toy studies and with realistic event simulations of the WZ
+process in the semileptonic decay channel.
+\\ ( https://arxiv.org/abs/2401.10323 ,  626kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10326
+Date: Thu, 18 Jan 2024 19:00:02 GMT   (1261kb,D)
+
+Title: The Smallness of Matter Effects in Long-Baseline Muon Neutrino
+  Disappearance
+Authors: Peter B. Denton and Stephen J. Parke
+Categories: hep-ph hep-ex
+Comments: 8 pages, 6 figures, 1 table, comments welcome!
+Report-no: FERMILAB-PUB-24-0013-T
+\\
+  Current long-baseline accelerator experiments, NOvA and T2K, are making
+excellent measurements of neutrino oscillations and the next generation of
+experiments, DUNE and HK, will make measurements at the $\mathcal O(1\%)$ level
+of precision. These measurements are a combination of the appearance channel
+which is more challenging experimentally but depends on many oscillation
+parameters, and the disappearance channel which is somewhat easier and allows
+for precision measurements of the atmospheric mass splitting and the
+atmospheric mixing angle. It is widely recognized that the matter effect plays
+a key role in the appearance probability, yet the effect on the disappearance
+probability is surprisingly small for these experiments. Here we investigate
+both exactly how small the effect is and show that it just begins to become
+relevant in the high statistics regime of DUNE.
+\\ ( https://arxiv.org/abs/2401.10326 ,  1261kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10621
+Date: Fri, 19 Jan 2024 10:54:02 GMT   (913kb,D)
+
+Title: Event-Generator Validation with MCPLOTS and LHC@home
+Authors: Natalia Korneeva, Anton Karneyeu, and Peter Skands
+Categories: hep-ph
+\\
+  We document several recent updates to the MCPLOTS event-generator validation
+resource. The project is based on the RIVET analysis library and harnesses
+volunteer computing provided by LHC@home to generate high-statistics MC
+comparisons to data. Users interact with the resource via a simple website,
+mcplots.cern.ch, which provides flexible options for requesting comparison
+plots and comprehensive statistical analyses on demand, all in a few clicks.
+The project has been structured to enable community-driven developments, and we
+discuss the computational back end, the web front end, and how to add new data
+analyses, generators, and tunes that would be accessible on the website for
+comparison.
+\\ ( https://arxiv.org/abs/2401.10621 ,  913kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10644
+Date: Fri, 19 Jan 2024 11:45:57 GMT   (215kb,D)
+
+Title: Unraveling collisional energy loss of a heavy quark in quark-gluon
+  plasma
+Authors: Jiazhen Peng, Kewei Yu, Shuang Li, Wei Xiong, Fei Sun and Wei Xie
+Categories: hep-ph nucl-th
+Comments: 16 pages, 8 figures
+\\
+  At leading order in QCD coupling constant, we compute the energy loss per
+traveling distance of a heavy quark $dE/dz$ from elastic scattering off thermal
+quarks and gluons at a temperature $T$, including the thermal perturbative
+description of soft scatterings ($-t<-t^{\ast}$) and a perturbative QCD-based
+calculation for hard collisions ($-t>-t^{\ast}$). Within this soft-hard
+factorization model, we find that the full results of $dE/dz$ behaves a mild
+sensitivity to the intermediate cutoff $t^{\ast}$, supporting the validity of
+the soft-hard approach within the temperature region of interest. We re-derive
+the analytic formula for $dE/dz$ in the high-energy approximation, $E_{1}\gg
+m^{2}_{1}/T$, where $E_{1}$ is the injected heavy quark energy and $m_{1}$ is
+its mass. It is realized that the soft logarithmic contribution, $dE/dz\propto
+ln(-t^{\ast}/m^{2}_{D})$, arises from the $t$-channel scattering off thermal
+partons, while the hard logarithmic term, $dE/dz\propto
+ln[E_{1}T/(-t^{\ast})]$, stems from the $t$-channel scattering off thermal
+partons, and the one $dE/dz\propto ln(E_{1}T/m^{2}_{1})$ comes from the $s$-
+and $u$-channel scattering off gluons. The sum of these contributions cancels
+the $t^{\ast}$-dependence as observed in the full result. The mass hierarchy is
+observed $dE/dz(charm)>dE/dz(bottom)$. Our full results are crucial for a
+better description of heavy quark transport in QCD medium, in particular at low
+and moderate energy. We also calculate the energy loss by imposing the
+Einstein's relationship. The related results appear to be systematically larger
+than that without imposing the Einstein's relationship.
+\\ ( https://arxiv.org/abs/2401.10644 ,  215kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10678
+Date: Fri, 19 Jan 2024 13:20:03 GMT   (809kb,D)
+
+Title: Four top final states with NLO accuracy in perturbative QCD: 4 lepton
+  channel
+Authors: Nikolaos Dimitrakopoulos and Malgorzata Worek
+Categories: hep-ph hep-ex
+Comments: 30 pages, 11 figures, 2 tables
+Report-no: TTK-24-02, P3H-24-001
+\\
+  Triggered by the observation of four top-quark production at the LHC by the
+ATLAS and CMS collaboration we report on the calculation of the next-to-leading
+order QCD corrections to the Standard Model process $pp \to t\bar{t}t\bar{t}$
+in the $4\ell$ top-quark decay channel. We take into account higher-order QCD
+effects in both the production and decays of the four top quarks. The latter
+effects are treated in the narrow width approximation, which preserves
+top-quark spin correlations throughout the calculation. We present results for
+two selected renormalisation and factorisation scale settings and three
+different PDF sets. Furthermore, we study the main theoretical uncertainties
+that are associated with the neglected higher-order terms in the perturbative
+expansion and with the parameterisation of the PDF sets. The results at the
+integrated and differential fiducial cross-section level are shown for the LHC
+Run III center-of-mass energy of $\sqrt{s}=13.6$ TeV. Our findings are
+particularly relevant for precise measurements of the four top-quark fiducial
+cross sections and for the modelling of top-quark decays at the LHC.
+\\ ( https://arxiv.org/abs/2401.10678 ,  809kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10792
+Date: Fri, 19 Jan 2024 16:24:34 GMT   (59kb,D)
+
+Title: Implications of the Weak Gravity Conjecture on Charge, Kinetic Mixing,
+  the Photon Mass, and More
+Authors: Fayez Abu-Ajamieh, Nobuchika Okada, Sudhir K Vempati
+Categories: hep-ph gr-qc hep-th
+Comments: 8 pages, 3 figures
+\\
+  We investigate several phenomenological implications of the Weak Gravity
+Conjecture (WGC). We find that the WGC implies that the SM neutrinos must be
+electrically neutral, that the electric charge in the SM must be quantized, and
+that the photon must be massless. In addition, we use the WGC to set lower
+bounds on the electric charge of milli-charged particles (mCP), the gauge
+coupling of several $U(1)$ extensions of the SM, their kinetic mixing parameter
+with the SM $U(1)_{\text{EM}}$, and the axion couplings to photons and
+fermions. We also set an upper bound on the lifetime of the proton.
+\\ ( https://arxiv.org/abs/2401.10792 ,  59kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10814
+Date: Fri, 19 Jan 2024 17:02:01 GMT   (265kb,D)
+
+Title: Higgs production at RHIC and the positivity of the gluon helicity
+  distribution
+Authors: Daniel de Florian, Stefano Forte, Werner Vogelsang
+Categories: hep-ph
+Comments: 8 pages, 2 figures
+\\
+  We show that the negative polarized gluon distribution $\Delta g$ found in a
+recent global next-to-leading order QCD analysis of the nucleon helicity
+structure is incompatible with the fundamental requirement that physical
+cross-sections must not be negative. Specifically, we show that the fact that
+this polarized gluon strongly violates the positivity condition $|\Delta g|\leq
+g$ in terms of the unpolarized gluon distribution $g$ leads to negative
+cross-sections for Higgs boson production at RHIC as a physical process,
+implying that this negative $\Delta g$ is unphysical.
+\\ ( https://arxiv.org/abs/2401.10814 ,  265kb)
+%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-%-
+------------------------------------------------------------------------------
+\\
+arXiv:2311.17816 (*cross-listing*)
+Date: Wed, 29 Nov 2023 17:10:49 GMT   (2804kb,D)
+
+Title: Fixed point actions from convolutional neural networks
+Authors: Kieran Holland, Andreas Ipp, David I. M\"uller, Urs Wenger
+Categories: hep-lat cs.LG hep-ph stat.ML
+Comments: 9 pages, 5 figures; Proceedings of the 40th International Symposium
+  on Lattice Field Theory (Lattice 2023)
+\\
+  Lattice gauge-equivariant convolutional neural networks (L-CNNs) can be used
+to form arbitrarily shaped Wilson loops and can approximate any gauge-covariant
+or gauge-invariant function on the lattice. Here we use L-CNNs to describe
+fixed point (FP) actions which are based on renormalization group
+transformations. FP actions are classically perfect, i.e., they have no lattice
+artifacts on classical gauge-field configurations satisfying the equations of
+motion, and therefore possess scale invariant instanton solutions. FP actions
+are tree-level Symanzik-improved to all orders in the lattice spacing and can
+produce physical predictions with very small lattice artifacts even on coarse
+lattices. We find that L-CNNs are much more accurate at parametrizing the FP
+action compared to older approaches. They may therefore provide a way to
+circumvent critical slowing down and topological freezing towards the continuum
+limit.
+\\ ( https://arxiv.org/abs/2311.17816 ,  2804kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.06481 (*cross-listing*)
+Date: Fri, 12 Jan 2024 10:03:00 GMT   (1953kb,D)
+
+Title: Machine learning a fixed point action for SU(3) gauge theory with a
+  gauge equivariant convolutional neural network
+Authors: Kieran Holland, Andreas Ipp, David I. M\"uller, Urs Wenger
+Categories: hep-lat cs.LG hep-ph stat.ML
+Comments: 22 pages, 15 figures, 6 tables
+\\
+  Fixed point lattice actions are designed to have continuum classical
+properties unaffected by discretization effects and reduced lattice artifacts
+at the quantum level. They provide a possible way to extract continuum physics
+with coarser lattices, thereby allowing to circumvent problems with critical
+slowing down and topological freezing toward the continuum limit. A crucial
+ingredient for practical applications is to find an accurate and compact
+parametrization of a fixed point action, since many of its properties are only
+implicitly defined. Here we use machine learning methods to revisit the
+question of how to parametrize fixed point actions. In particular, we obtain a
+fixed point action for four-dimensional SU(3) gauge theory using convolutional
+neural networks with exact gauge invariance. The large operator space allows us
+to find superior parametrizations compared to previous studies, a necessary
+first step for future Monte Carlo simulations.
+\\ ( https://arxiv.org/abs/2401.06481 ,  1953kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10260 (*cross-listing*)
+Date: Sat, 30 Dec 2023 15:59:03 GMT   (838kb)
+
+Title: A new game with Quark Matter Cards:Interactions of elementary particles
+Authors: Ana Uzelac
+Categories: physics.ed-ph hep-ph physics.pop-ph
+Comments: 28 pages, 13 figures, Contribution to ISMD 2023
+\\
+  This paper introduces a card game called "Quark Matter Card Games," inspired
+by the creativity of a high school student, Csaba To ro k, and developed in
+collaboration with physicist Tama s Cso rgo . The game utilizes a deck of 66
+cards representing elementary particles and antiparticles, offering an
+entertaining way to popularize science and introduce players to particle
+physics concepts. The initial edition includes games exploring topics like
+baryon formation, mesons, quark colors, and more. The author proposes a new
+game focusing on the four fundamental forces. Players must strategically place
+cards on a central card, simulating interactions based on strong,
+electromagnetic, weak, and gravitational forces. Specific rules for particle
+placement, including fundamental forces, annihilation and neutrino oscillations
+are elucidated. Additional rules and conditions add complexity and strategy to
+the game, ensuring active engagement. The intended audience ranges from
+individuals familiar with particle physics to those new to the field. The game
+provides an engaging platform for learning about elementary particle
+interactions, with varying levels of complexity. The paper discusses the
+educational potential, offering suggestions for simplified versions.
+Furthermore, all necessary concepts are briefly explained, and the physical
+background of the game is provided. The paper concludes with topics for further
+discussions, linking game experiences to particle physics concepts. Questions
+cover gravitational interaction interpretations, differentiation between quarks
+and leptons, explanations of weak and electromagnetic interactions and more.
+The acknowledgment section expresses gratitude to mentors and pioneers of card
+games with elementary particles for their inspiration and support.
+\\ ( https://arxiv.org/abs/2401.10260 ,  838kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10329 (*cross-listing*)
+Date: Thu, 18 Jan 2024 19:00:03 GMT   (1842kb,D)
+
+Title: Antiproton Bounds on Dark Matter Annihilation from a Combined Analysis
+  Using the DRAGON2 Code
+Authors: Pedro De la Torre Luque, Martin Winkler, Tim Linden
+Categories: astro-ph.HE hep-ph
+Comments: 25 pages, 10 figures, 1 table, 4 appendices. Link to the code used:
+  github.com/tospines/Customised-DRAGON-versions/tree/main/Custom_DRAGON2_v2-Antinuclei
+\\
+  Early studies of the AMS-02 antiproton ratio identified a possible excess
+over the expected astrophysical background that could be fit by the
+annihilation of a weakly interacting massive particle (WIMP). However, recent
+efforts have shown that uncertainties in cosmic-ray propagation, the antiproton
+production cross-section, and correlated systematic uncertainties in the AMS-02
+data, may combine to decrease or eliminate the significance of this feature. We
+produce an advanced analysis using the DRAGON2 code which, for the first time,
+simultaneously fits the antiproton ratio along with multiple secondary
+cosmic-ray flux measurements to constrain astrophysical and nuclear
+uncertainties. Compared to previous work, our analysis benefits from a
+combination of: (1) recently released AMS-02 antiproton data, (2) updated
+nuclear fragmentation cross-section fits, (3) a rigorous Bayesian parameter
+space scan that constrains cosmic-ray propagation parameters.
+  We find no statistically significant preference for a dark matter signal and
+set strong constraints on WIMP annihilation to $b\bar{b}$, ruling out
+annihilation at the thermal cross-section for dark matter masses below
+$\sim200$~GeV. We do find a positive residual that is consistent with previous
+work, and can be explained by a $\sim70$~GeV WIMP annihilating below the
+thermal cross-section. However, our default analysis finds this excess to have
+a local significance of only 2.8$\sigma$, which is decreased to 1.8$\sigma$
+when the look-elsewhere effect is taken into account.
+\\ ( https://arxiv.org/abs/2401.10329 ,  1842kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10332 (*cross-listing*)
+Date: Thu, 18 Jan 2024 19:00:11 GMT   (52kb)
+
+Title: Entanglement Entropy in Scalar Quantum Electrodynamics
+Authors: Samuel Fedida, Anupam Mazumdar, Sougato Bose and Alessio Serafini
+Categories: hep-th hep-ph quant-ph
+Comments: 10 pages, 1 figure
+\\
+  We find the entanglement entropy of a subregion of the vacuum state in scalar
+quantum electrodynamics, working perturbatively to the 2-loops level. Doing so
+leads us to derive the Maxwell-Proca propagator in conical Euclidean space. The
+area law of entanglement entropy is recovered in both the massive and massless
+limits of the theory, as is expected. These results yield the renormalisation
+group flow of entanglement entropy, and we find that loop contributions
+suppress entanglement entropy. We highlight these results in the light of the
+renormalization group flow of couplings and correlators, which are increased in
+scalar quantum electrodynamics, so that the potential tension between the
+increase in correlations between two points of spacetime and the decrease in
+entanglement entropy between two regions of spacetime with energy is discussed.
+We indeed show that the vacuum of a subregion of spacetime purifies with energy
+in scalar quantum electrodynamics, which is related to the concept of
+screening.
+\\ ( https://arxiv.org/abs/2401.10332 ,  52kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10645 (*cross-listing*)
+Date: Fri, 19 Jan 2024 11:47:22 GMT   (198kb,D)
+
+Title: Photoproduction of lepton pair in ultra-relativistic heavy-ion
+  collisions
+Authors: Kewei Yu, Jiazhen Peng, Shuang Li, Kejun Wu, Wei Xie and Fei Sun
+Categories: nucl-th hep-ph
+Comments: 10 pages, 9 figures
+\\
+  Dilepton production provides a unique probe of the strong electromagnetic
+field produced in heavy-ion collisions. To map out the behavior of its
+transverse momentum broadening, we present a theoretical model based on the
+equivalent photon approximation, and then we update it to make direct
+comparisons with the recent experimental measurements. We find that the model
+calculations can describe well, not only the average transverse momentum
+squared of $e^{+}e^{-}$ pairs in Au--Au collisions at $\sqrt{s_{\rm NN}}=200$
+GeV, but also the acoplanarity of $\mu^{+}\mu^{-}$ pairs in Pb--Pb collisions
+at$\sqrt{s_{\rm NN}}=5.02$ TeV. Furthermore, the model predictions are also
+able to reproduce the measured dependencies of the pair mass and the transverse
+momentum squared.
+\\ ( https://arxiv.org/abs/2401.10645 ,  198kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10680 (*cross-listing*)
+Date: Fri, 19 Jan 2024 13:24:33 GMT   (420kb,D)
+
+Title: The PTA Hellings and Downs Correlation Unmasked by Symmetries
+Authors: Alex Kehagias and Antonio Riotto
+Categories: gr-qc astro-ph.CO hep-ph hep-th
+Comments: 22 pages, 2 figures
+\\
+  The Hellings and Downs correlation curve describes the correlation of the
+timing residuals from pairs of pulsars as a function of their angular
+separation on the sky and is a smoking-gun signature for the detection of an
+isotropic stochastic background of gravitational waves. We show that it can be
+easily obtained from realizing that Lorentz transformations are conformal
+transformations on the celestial sphere and from the conformal properties of
+the two-point correlation of the timing residuals. This result allows several
+generalizations, e.g. the calculation of the three-point correlator of the time
+residuals and the inclusion of additional polarization modes (vector and/or
+scalar) arising in alternative theories of gravity.
+\\ ( https://arxiv.org/abs/2401.10680 ,  420kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10715 (*cross-listing*)
+Date: Fri, 19 Jan 2024 14:25:45 GMT   (6404kb,D)
+
+Title: Entanglement distribution in Bhabha scattering with entangled spectator
+  particle
+Authors: Massimo Blasone, Gaetano Lambiase and Bruno Micciola
+Categories: quant-ph hep-ph hep-th
+Comments: 15 pages, 11 figures
+\\
+  We analyze how entanglement is generated and distributed in a Bhabha
+scattering process $(e^-e^+\rightarrow e^-e^+)$ at tree level. In our setup an
+electron $A$ scatters with a positron $B$, which is initially entangled with
+another electron $C$ (spectator), that does not participate directly to the
+process. We find that the QED scattering generates and distributes entanglement
+in a non-trivial way among the three particles: the correlations in the output
+channels $AB$, $AC$ and $BC$ are studied in detail as functions of the
+scattering parameters and of the initial entanglement weight. Although derived
+in a specific case, our results exhibit some general features of other similar
+QED scattering processes, for which the extension of the present analysis is
+straightforward.
+\\ ( https://arxiv.org/abs/2401.10715 ,  6404kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10715 (*cross-listing*)
+Date: Fri, 19 Jan 2024 14:25:45 GMT   (6404kb,D)
+
+Title: Entanglement distribution in Bhabha scattering with entangled spectator
+  particle
+Authors: Massimo Blasone, Gaetano Lambiase and Bruno Micciola
+Categories: quant-ph hep-ph hep-th
+Comments: 15 pages, 11 figures
+\\
+  We analyze how entanglement is generated and distributed in a Bhabha
+scattering process $(e^-e^+\rightarrow e^-e^+)$ at tree level. In our setup an
+electron $A$ scatters with a positron $B$, which is initially entangled with
+another electron $C$ (spectator), that does not participate directly to the
+process. We find that the QED scattering generates and distributes entanglement
+in a non-trivial way among the three particles: the correlations in the output
+channels $AB$, $AC$ and $BC$ are studied in detail as functions of the
+scattering parameters and of the initial entanglement weight. Although derived
+in a specific case, our results exhibit some general features of other similar
+QED scattering processes, for which the extension of the present analysis is
+straightforward.
+\\ ( https://arxiv.org/abs/2401.10715 ,  6404kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10750 (*cross-listing*)
+Date: Fri, 19 Jan 2024 15:19:04 GMT   (61kb,D)
+
+Title: What can abelian gauge theories teach us about kinematic algebras?
+Authors: Kymani Armstrong-Williams, Silvia Nagy, Chris D. White, Sam Wikeley
+Categories: hep-th gr-qc hep-ph
+Comments: 30 pages, 6 figures
+Report-no: UUITP-02/24
+\\
+  The phenomenon of BCJ duality implies that gauge theories possess an abstract
+kinematic algebra, mirroring the non-abelian Lie algebra underlying the colour
+information. Although the nature of the kinematic algebra is known in certain
+cases, a full understanding is missing for arbitrary non-abelian gauge
+theories, such that one typically works outwards from well-known examples. In
+this paper, we pursue an orthogonal approach, and argue that simpler abelian
+gauge theories can be used as a testing ground for clarifying our understanding
+of kinematic algebras. We first describe how classes of abelian gauge fields
+are associated with well-defined subgroups of the diffeomorphism algebra. By
+considering certain special subgroups, we show that one may construct
+interacting theories, whose kinematic algebras are inherited from those already
+appearing in a related abelian theory. Known properties of (anti-)self-dual
+Yang-Mills theory arise in this way, but so do new generalisations, including
+self-dual electromagnetism coupled to scalar matter. Furthermore, a recently
+obtained non-abelian generalisation of the Navier-Stokes equation fits into a
+similar scheme, as does Chern-Simons theory. Our results provide useful input
+to further conceptual studies of kinematic algebras.
+\\ ( https://arxiv.org/abs/2401.10750 ,  61kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10760 (*cross-listing*)
+Date: Fri, 19 Jan 2024 15:32:50 GMT   (181kb,D)
+
+Title: Diffraction and elastic scattering at the LHC
+Authors: Anna Feh\'erkuti
+Categories: hep-ex hep-ph
+Comments: 6 pages, 1 figure (3 subfigures)
+\\
+  Several LHC experiments exploit the high acceptance in the forward region.
+Most of them use the possibility of measuring the intact proton in an elastic
+event. This approach can enhance the purity of selecting jet-gap-jet events,
+leading to refined limits on photon-induced processes or to a better study of
+pion pair production. Diffraction and elastic scattering plays also the main
+role when measuring the rho-parameter or the nuclear slope in total
+cross-section measurements.
+  In this talk a summary of the latest results on this topic from the ATLAS,
+CMS and LHCb experiments has been presented.
+\\ ( https://arxiv.org/abs/2401.10760 ,  181kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.10851 (*cross-listing*)
+Date: Fri, 19 Jan 2024 17:52:30 GMT   (1275kb,D)
+
+Title: Using Bayesian Inference to Distinguish Neutrino Flavor Conversion
+  Scenarios via a Prospective Supernova Neutrino Signal
+Authors: Sajad Abbar and Maria Cristina Volpe
+Categories: astro-ph.HE hep-ph nucl-th
+Comments: 13 pages, 6 figures
+Report-no: MPP-2024-11
+\\
+  The upcoming galactic core-collapse supernova is expected to produce a
+considerable number of neutrino events within terrestrial detectors. By using
+Bayesian inference techniques, we address the feasibility of distinguishing
+among various neutrino flavor conversion scenarios in the supernova
+environment, using such a neutrino signal. In addition to the conventional MSW,
+we explore several more sophisticated flavor conversion scenarios, such as
+spectral swapping, fast flavor conversions, flavor equipartition caused by
+non-standard neutrino interactions, magnetically-induced flavor equilibration,
+and flavor equilibrium resulting from slow flavor conversions. Our analysis
+demonstrates that with a sufficiently large number of neutrino events during
+the supernova accretion phase (exceeding several hundreds), there exists a good
+probability of distinguishing among feasible neutrino flavor conversion
+scenarios in the supernova environment.
+\\ ( https://arxiv.org/abs/2401.10851 ,  1275kb)
+%%--%%--%%--%%--%%--%%--%%--%%--%%--%%--%%--%%--%%--%%--%%--%%--%%--%%--%%--%%
+------------------------------------------------------------------------------
+\\
+arXiv:2205.06061
+replaced with revised version Fri, 19 Jan 2024 11:27:13 GMT   (139kb,D)
+
+Title: Renormalization-group improved Higgs to two gluons decay rate
+Authors: Gauhar Abbas, Astha Jain, Vartika Singh, Neelam Singh
+Categories: hep-ph hep-ex
+Comments: 34 pages, 19 figures, accepted version in EPJP
+\\ ( https://arxiv.org/abs/2205.06061 ,  139kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2211.02666
+replaced with revised version Fri, 19 Jan 2024 16:08:59 GMT   (27104kb,D)
+
+Title: Measuring Oscillations with A Million Atmospheric Neutrinos
+Authors: C. A. Arg\"uelles, P. Fern\'andez, I. Mart\'inez-Soler, M. Jin
+Categories: hep-ph hep-ex
+Comments: 46 pages, 37 figures
+Journal-ref: Phys. Rev. X 13, 041055 (2023)
+DOI: 10.1103/PhysRevX.13.041055
+\\ ( https://arxiv.org/abs/2211.02666 ,  27104kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2303.15778
+replaced with revised version Fri, 19 Jan 2024 14:53:39 GMT   (99kb,D)
+
+Title: HEJ 2.2: W boson pairs and Higgs boson plus jet production at high
+  energies
+Authors: Jeppe R. Andersen, Bertrand Duclou\'e, Conor Elrick, Hitham Hassan,
+  Andreas Maier, Graeme Nail, J\'er\'emy Paltrinieri, Andreas Papaefstathiou,
+  Jennifer M. Smillie
+Categories: hep-ph
+Comments: 36 pages, 6 figures and many code listings. Journal version
+Report-no: IPPP/23/18, DCPT/23/36, DESY-23-038
+Journal-ref: SciPost Phys. Codebases 21 (2023)
+DOI: 10.21468/SciPostPhysCodeb.21
+\\ ( https://arxiv.org/abs/2303.15778 ,  99kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2305.03069
+replaced with revised version Fri, 19 Jan 2024 14:36:17 GMT   (226kb,D)
+
+Title: Probing the onset of maximal entanglement inside the proton in
+  diffractive DIS
+Authors: Martin Hentschinski, Dmitri E. Kharzeev, Krzysztof Kutak, Zhoudunming
+  Tu
+Categories: hep-ph hep-ex nucl-ex nucl-th quant-ph
+Comments: final version published in Phys.Rev.Lett. 131 (2023) 24, 241901
+\\ ( https://arxiv.org/abs/2305.03069 ,  226kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2306.00870 (*cross-listing*)
+replaced with revised version Fri, 19 Jan 2024 11:59:10 GMT   (970kb,D)
+
+Title: Constraining Palatini gravity with GR-independent equations of state for
+  neutron stars
+Authors: Eva Lope-Oter, Aneta Wojnar
+Categories: gr-qc astro-ph.HE hep-ph nucl-th
+Comments: 39 pages, 20 figures, 4 tables, accepted to JCAP
+\\ ( https://arxiv.org/abs/2306.00870 ,  970kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2308.09739 (*cross-listing*)
+replaced with revised version Thu, 18 Jan 2024 19:43:05 GMT   (1142kb,D)
+
+Title: Subhalo effective density slope measurements from HST strong lensing
+  data with neural likelihood-ratio estimation
+Authors: Gemma Zhang, At{\i}n\c{c} \c{C}a\u{g}an \c{S}eng\"ul, Cora Dvorkin
+Categories: astro-ph.CO hep-ph
+Comments: 11 pages, 6 figures, v2; matches published version in MNRAS
+Journal-ref: Monthly Notices of the Royal Astronomical Society, Volume 527,
+  Issue 2, January 2024, Pages 4183-4192
+DOI: 10.1093/mnras/stad3521
+\\ ( https://arxiv.org/abs/2308.09739 ,  1142kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2308.15587
+replaced with revised version Fri, 19 Jan 2024 12:28:30 GMT   (1520kb,D)
+
+Title: Production of bound states of magnetic monopoles in high energy
+  collisions at LHC
+Authors: Jo\~ao Vitor Bulh\~oes da Silva and Werner Krambeck Sauter
+Categories: hep-ph
+Comments: 16 pages, 7 figures. Version 2: abstract and conclusions revised,
+  references modified and added, one table added. Version 3: reference added,
+  results revised, typos corrected
+\\ ( https://arxiv.org/abs/2308.15587 ,  1520kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2310.12203 (*cross-listing*)
+replaced with revised version Fri, 19 Jan 2024 15:52:26 GMT   (27kb,D)
+
+Title: Elements of Confinement for QCD with Twelve Massless Quarks
+Authors: Seth Grable and Paul Romatschke
+Categories: hep-th hep-ph nucl-th
+Comments: 7 pages, comments welcome
+\\ ( https://arxiv.org/abs/2310.12203 ,  27kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2310.19213
+replaced with revised version Fri, 19 Jan 2024 15:35:38 GMT   (290kb)
+
+Title: $J/\psi$ decays into $\omega (\phi) f_1(1285)$ and $\omega (\phi)
+  \,''f_1(1420)''$
+Authors: Jia-Xin Lin, Jia-Ting Li, Wei-Hong Liang, Hua-Xing Chen and Eulogio
+  Oset
+Categories: hep-ph
+Comments: 17 pages, 5 figures; v2: discussion added, references added, version
+  to appear in Eur.Phys.J.C
+\\ ( https://arxiv.org/abs/2310.19213 ,  290kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2311.09152
+replaced with revised version Fri, 19 Jan 2024 03:41:23 GMT   (906kb)
+
+Title: Exclusive diffractive J/psi and Psi(2S) production in dipole model using
+  a holographic AdS/QCD light front wavefunction with longitudinal confinement
+Authors: Neetika Sharma
+Categories: hep-ph
+Comments: https://link.aps.org/doi/10.1103/PhysRevD.109.014019
+DOI: 10.1103/PhysRevD.109.014019
+\\ ( https://arxiv.org/abs/2311.09152 ,  906kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2312.07608 (*cross-listing*)
+replaced with revised version Fri, 19 Jan 2024 14:40:11 GMT   (1093kb)
+
+Title: Dynamically massive linear covariant gauges: setup and first results
+Authors: Giorgio Comitini, Tim De Meerleer, David Dudal, Silvio Paolo Sorella
+Categories: hep-th hep-ph
+\\ ( https://arxiv.org/abs/2312.07608 ,  1093kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2312.13384 (*cross-listing*)
+replaced with revised version Fri, 19 Jan 2024 10:56:55 GMT   (18kb)
+
+Title: Weyl quadratic gravity as a gauge theory and non-metricity vs torsion
+  duality
+Authors: C. Condeescu, D. M. Ghilencea and A. Micu
+Categories: hep-th gr-qc hep-ph
+Comments: 12 pages
+\\ ( https://arxiv.org/abs/2312.13384 ,  18kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.02334
+replaced with revised version Fri, 19 Jan 2024 18:31:16 GMT   (6407kb,D)
+
+Title: Probing New Physics in light of recent developments in $b \rightarrow c
+  \ell \nu$ transitions
+Authors: Tahira Yasmeen, Ishtiaq Ahmed, Saba Shafaq, Muhammad Arslan and
+  Muhammad Jamil Aslam
+Categories: hep-ph hep-ex
+Comments: 33 pages, 9 figures, 7 Tables, New references added; some typos
+  corrected, updated Tables and Figures with some modifications in the text
+\\ ( https://arxiv.org/abs/2401.02334 ,  6407kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.05005
+replaced with revised version Fri, 19 Jan 2024 08:18:06 GMT   (1522kb,D)
+
+Title: Comprehensive constraints on fermionic dark matter-quark tensor
+  interactions in direct detection experiments
+Authors: Jin-Han Liang, Yi Liao, Xiao-Dong Ma, and Hao-Lin Wang
+Categories: hep-ph
+Comments: v1: 19 pages, 4 figures; v2: We have updated discussion on nucleon
+  form factors by using more recent numbers, without modifying our final
+  numerical results
+\\ ( https://arxiv.org/abs/2401.05005 ,  1522kb)
+------------------------------------------------------------------------------
+\\
+arXiv:2401.05644
+replaced with revised version Fri, 19 Jan 2024 03:41:17 GMT   (65kb,D)
+
+Title: Elastic scattering of supernova neutrinos with electrons in xenon
+Authors: Pijushpani Bhattacharjee, Kamales Kar
+Categories: hep-ph astro-ph.HE
+Comments: Replaced with revised version; References added; minor changes in
+  text; 12 pages Latex, 3 Figures
+\\ ( https://arxiv.org/abs/2401.05644 ,  65kb)
+%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---%%%---
+For subscribe options to combined physics archives,
+e-mail To: physics@arxiv.org, Subject: subscribe
+-----------------------------------------------------------------------------
+For help on viewing and making submissions, see http://arxiv.org/help/
+

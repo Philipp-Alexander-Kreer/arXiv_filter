@@ -1,11 +1,1 @@
-dark matter, n=4 sym, swamp lands, swampland, dark energy, heavy majorana neutrinos, axion, majorana heavy neutrinos,
-photon mass, minimal standard model extension, inflation, spontaneous scalarization, beyond the standard model, string integrable,
-string correction, string theory, supersymmetric, supergravity, de sitter, conformal, quantum gravitational, bootstrap,
-solitonic symmetry, susy, modified cosmology, dark sector, heavy neutrinos, baryogenesis, seesaw model,
-grand gauge-higgs unification, superstring,super-string, string field theory, relativistic string, modified gravity theories, seesaw,
-holography, warped blackhole, "dark bremsstrahlung", $\mathcal{N}=4$ sym, black strings, string correlators, dark force, wormhole, dark photon,
-supersymmetry, wimps, majorana, super yang-mills, warped, holographic, holography, probing new physics, celestial, superfield, smeft, leptogenesis,
-grand unification model, supergravit, dark boson, sphaleron, dark-matter, higgsino, string black hole, supersymmetrization, grand unification,
-Heterotic strings, braneworld, black string, (super)symmetry, hunting, stringy, de-sitter, puzzle, swamp, super-extremal, frozen singularities,
-dark qcd, dark topological, ultraviolet completion, supermassive, inflaton, minisuperspace,solitonic, gravastar, string amplitude, string interaction,
-Dark Photons, metastable strings, new physics
+quark
