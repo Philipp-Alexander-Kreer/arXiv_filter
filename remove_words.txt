@@ -1,1 +1,1 @@
-quark, neural network, 
+quark, neural network
