@@ -23,7 +23,7 @@ Titles are then presented sequentially to you. If a title catches your interest,
 ## Installation
 
 ```
-git pull (this directory)
+git pull https://github.com/p-a-kreer/arXiv_filter
 ```
 
 ```
