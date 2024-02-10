@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7758163-3401-4444-985a-4bed0423f96c" name="Changes" comment="working version">
+    <list default="true" id="c7758163-3401-4444-985a-4bed0423f96c" name="Changes" comment="alpha version">
+      <change afterPath="$PROJECT_DIR$/setup/white_list.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/remove_words.txt" beforeDir="false" afterPath="$PROJECT_DIR$/remove_words.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Email_Directory/test_mail_safty.eml" beforeDir="false" afterPath="$PROJECT_DIR$/Email_Directory/test_mail_safty.eml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arXiv_filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/arXiv_filter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remove_words.txt" beforeDir="false" afterPath="$PROJECT_DIR$/setup/remove_words.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.config" beforeDir="false" afterPath="$PROJECT_DIR$/setup/settings.config" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +30,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -50,6 +59,7 @@
       <recent name="$PROJECT_DIR$/Data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/setup" />
       <recent name="$PROJECT_DIR$/Email_Directory" />
     </key>
   </component>
@@ -194,7 +204,23 @@
       <option name="project" value="LOCAL" />
       <updated>1707243705754</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="alpha version">
+      <option name="closed" value="true" />
+      <created>1707243845980</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1707243845980</updated>
+    </task>
+    <task id="LOCAL-00014" summary="alpha version">
+      <option name="closed" value="true" />
+      <created>1707243958363</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1707243958364</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -220,7 +246,8 @@
     <MESSAGE value="Updated user interface" />
     <MESSAGE value="Created module arXiv_filter.py" />
     <MESSAGE value="working version" />
-    <option name="LAST_COMMIT_MESSAGE" value="working version" />
+    <MESSAGE value="alpha version" />
+    <option name="LAST_COMMIT_MESSAGE" value="alpha version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -236,7 +263,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/arXiv_filter.py</url>
-          <line>203</line>
+          <line>222</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>

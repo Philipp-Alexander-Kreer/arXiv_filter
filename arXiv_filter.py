@@ -1,9 +1,10 @@
 import os
 import pandas as pd
 import webbrowser
+
+
 class Article:
     def __init__(self, article):
-
         # if article is a string, extract the info
         article_info = extract_article_info(article)
 
@@ -20,62 +21,63 @@ class Article:
         self.link = article_info['link']
         self.label = article_info['label']
 
+
+def string_to_bool(string):
+    """Converts a string to a boolean. """
+    if string == 'True':
+        return True
+    elif string == 'False':
+        return False
+
+    raise ValueError("The string is not a boolean.")
+
+
 def load_settings():
     """Loads the settings from the settings file. """
-    with open("settings.config", 'r') as f:
+    with open("setup/settings.config", 'r') as f:
         settings = f.read().split("\n")[1::2]
-        print(settings[0])
 
     email_directory = settings[0]
     browser = webbrowser.get(settings[1])
     auto_open = settings[2]
-    saveQ = settings[3]
 
-    return email_directory, browser, auto_open, saveQ
+    # convert string to boolean
+    save_q = string_to_bool(settings[3])
+    author_q = string_to_bool(settings[4])
 
+    return email_directory, browser, auto_open, save_q, author_q
+
+
+# Function which loads the eml file and returns the body of the email
 def load_articles(file_path):
     """Loads an eml file and returns the body of the email. """
     with open(file_path, 'r') as f:
 
-
         # cut end of the email
         body = f.read().split('%%--%%--%%')[0] + "----\n\\\\"
 
-        #cut header of the email
+        # cut header of the email
         body = body.split('\\\\\narXiv:')[1:]
         body = ['arXiv:' + i for i in body]
 
         return body
 
-
-#Function which loads the eml file and returns the body of the email
-def load_articles(file_path):
-    """Loads an eml file and returns the body of the email. """
-    with open(file_path, 'r') as f:
-
-
-        # cut end of the email
-        body = f.read().split('%%--%%--%%')[0] + "----\n\\\\"
-
-        #cut header of the email
-        body = body.split('\\\\\narXiv:')[1:]
-        body = ['arXiv:' + i for i in body]
-
-        return body
 
 def extract_article_info(article):
     """Extracts the article info  and returns a dictionary with the info. """
 
     article_info = {}
 
-    #categories to extract (possible categories) + in order
-    categories = ['arXiv:','Date:','Title:','Authors:','Categories:','Comments:','Report-no:','Journal-ref:','DOI:','\\\\']
+    # categories to extract (possible categories) + in order
+    categories = \
+        ['arXiv:', 'Date:', 'Title:', 'Authors:', 'Categories:', 'Comments:',
+         'Report-no:', 'Journal-ref:', 'DOI:', '\\\\']
 
-    #keep only categories which are in article
+    # keep only categories which are in article
     filtered_categories = [category for category in categories if category in article]
 
-    #Put NA for categories which are not in article
-    complement_categories = [category.replace(':','').lower() for category in categories if category not in article]
+    # Put NA for categories which are not in article
+    complement_categories = [category.replace(':', '').lower() for category in categories if category not in article]
 
     for i in complement_categories:
         article_info[i] = 'NA'
@@ -85,34 +87,35 @@ def extract_article_info(article):
 
     article_cut = article.replace('\n', ' ').replace('(*cross-listing*)', '')
 
-
-
-    #split categories in article and put them in a dictionary
+    # split categories in article and put them in a dictionary
     for i in range(len(filtered_categories)-1):
 
         article_cut = article_cut.split(filtered_categories[i+1])
-        idname = filtered_categories[i].replace(':','').lower()
-        article_info[idname] = article_cut[0].replace('  ',' ')
+        idname = filtered_categories[i].replace(':', '').lower()
+        article_info[idname] = article_cut[0].replace('  ', ' ')
 
-        #if last category, add abstract and link
+        # if last category, add abstract and link
         if i == len(filtered_categories)-2:
             article_info['abstract'] = article_cut[1]
             article_info['link'] = article_cut[2].split(',')[0].replace('(', "").replace(' ', "")
 
         article_cut = article_cut[1]
 
-
     return article_info
 
 
-def filter_title(title, remove_words):
+def filter_title(title, whitelist_words, remove_words):
     """Filters the title of the article and returns a label. """
 
-    #Check if title contains remove_words
+    # Check if title contains words from the whitelist
+    if any(word in title.lower() for word in whitelist_words):
+        return 0
+    # Check if title contains remove_words
     if any(word in title.lower() for word in remove_words):
         return -1
-    else:
-        return 0
+
+    return 0
+
 
 def get_email_filenames(email_directory):
     """Returns the filenames of the emails in the email directory. """
@@ -120,6 +123,25 @@ def get_email_filenames(email_directory):
     email_filenames = [email_directory + email for email in os.listdir(email_directory) if email.endswith(".eml")]
 
     return email_filenames
+
+
+def load_word_list():
+    """Loads the word list from whitelist_words and remove_words.txt. """
+
+    # Load words from whitelist_words.txt
+    with open("setup/white_list.txt", "r") as f:
+        whitelist_words = [line.split(', ') for line in f.read().splitlines()]
+        # flatten the list and lower the words
+        whitelist_words = [word.lower() for sublist in whitelist_words for word in sublist]
+
+    # Load words from remove_words.txt
+    with open("setup/remove_words.txt", "r") as f:
+        remove_words = [line.split(', ') for line in f.read().splitlines()]
+        # flatten the list and lower the words
+        remove_words = [word.lower() for sublist in remove_words for word in sublist]
+
+    return whitelist_words, remove_words
+
 
 def prepare_dataframe(email_directory):
     """Prepares the dataframe for the articles. """
@@ -145,15 +167,11 @@ def prepare_dataframe(email_directory):
     darticles = darticles[~darticles.arxiv.str.contains("replaced")]
 
     # load remove_words.txt
-    with open("remove_words.txt", "r") as f:
-        remove_words = [line.split(', ') for line in f.read().splitlines()]
-        # flatten the list and lower the words
-
-        remove_words = [word.lower() for sublist in remove_words for word in sublist]
+    whitelist_words, remove_words = load_word_list()
 
     # filter articles based on title
     darticles.loc[darticles['label'] == 'NA', 'label'] = darticles[darticles['label'] == 'NA'].title.apply(
-        lambda x: filter_title(x, remove_words))
+        lambda x: filter_title(x, whitelist_words, remove_words))
 
     return darticles
 
@@ -170,6 +188,7 @@ def print_abstract(abstract):
             print(abstract[empty_space_positions[line_break]:])
         else:
             print(abstract[empty_space_positions[line_break]:empty_space_positions[line_break+1]])
+
 
 def open_link(link, browser, auto_open):
     """Asks the user if the link should be opened. """
@@ -195,8 +214,8 @@ def print_statistics(darticles):
 
 def delete_emails(email_directory):
     """Ask user if the emails should be deleted. """
-    user_input = input("Do you want to delete the emails? (y/n) ")
 
+    user_input = input("Do you want to delete the emails? (y/n) ")
 
     if user_input == 'y':
         email_filenames = get_email_filenames(email_directory)

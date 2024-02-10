@@ -45,6 +45,10 @@ run
 python main.py
 ```
 
+After running the demo, you can specify the words which must not appear in the title of the papers in the file 'remove_words.txt. 
+Furthermore, you can specify a list of white-listed words in the file 'whitelist_words.txt'. If an article contains a word from the list of remove_words, it will be removed from the list of articles. If an article contains a word from the list of whitelist_words, it will be kept in the list of articles eventhough it might contain words remove_words.txt list.
+
+
 Enjoy reading the papers and wait till the end :) 
 
 
