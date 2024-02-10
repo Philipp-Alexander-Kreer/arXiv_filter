@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7758163-3401-4444-985a-4bed0423f96c" name="Changes" comment="alpha version">
-      <change afterPath="$PROJECT_DIR$/setup/white_list.txt" afterDir="false" />
+    <list default="true" id="c7758163-3401-4444-985a-4bed0423f96c" name="Changes" comment="Fixed boolean bug + added white list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Email_Directory/test_mail_safty.eml" beforeDir="false" afterPath="$PROJECT_DIR$/Email_Directory/test_mail_safty.eml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arXiv_filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/arXiv_filter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/remove_words.txt" beforeDir="false" afterPath="$PROJECT_DIR$/setup/remove_words.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.config" beforeDir="false" afterPath="$PROJECT_DIR$/setup/settings.config" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +42,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/philipp/Documents/Cluster_Space/arXiv_Filter/pythonProject&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/philipp/Documents/Cluster_Space/Administration/p-a-kreer.github.io&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
 }</component>
@@ -220,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707243958364</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Fixed boolean bug + added white list">
+      <option name="closed" value="true" />
+      <created>1707546539948</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1707546539948</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -247,7 +248,8 @@
     <MESSAGE value="Created module arXiv_filter.py" />
     <MESSAGE value="working version" />
     <MESSAGE value="alpha version" />
-    <option name="LAST_COMMIT_MESSAGE" value="alpha version" />
+    <MESSAGE value="Fixed boolean bug + added white list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed boolean bug + added white list" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
